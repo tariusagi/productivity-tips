@@ -6,5 +6,5 @@ When you have an existing local Git repository, which may already tied to a remo
 5. If your default local branch name is different from new remote default branch, you need to rename it. For example, GitLab default branch is called "master", while GitHub is "main". Run this command to rename it: `git branch -m master main`
 6. Force pushing local repo to new remote, and also change tracking info to new remote branch: `git push -f --set-upstream origin main`
 7. Update local repo main branch to track new remote main branch: `git branch -u origin/main main` and then `git remote set-head origin -a`.
-8. Check different between local repo and new remote with `git diff origin`. There should be no difference.
+8. Verify migration result by checking differences between local repo and new remote with `git diff main..origin/main`. There should be no difference.
 9. Done.
