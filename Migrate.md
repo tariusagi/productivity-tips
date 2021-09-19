@@ -13,15 +13,15 @@ How can you do all these with fewest steps? Follows these:
 And we're done!
 
 ### Short version:
-```
+```sh
 git remote set-url origin git@github.com:tariusagi/myrepo.git
 ```
 or
-```
+```sh
 git remote add origin git@github.com:tariusagi/myrepo.git
 ```
 then
-```
+```sh
 git branch -m main
 git push -u origin main
 ```
@@ -37,17 +37,18 @@ Everything is the same as Scenario 1, but your new remote is **not empty**. If y
 And we're done!
 
 ### Short version
-```
+```sh
 git remote set-url origin git@github.com:tariusagi/myrepo.git
 ```
 or
-```
+```sh
 git remote add origin git@github.com:tariusagi/myrepo.git
 ```
 then
-```
+```sh
 git branch -m main
 git branch --set-upstream-to=origin/main main
 git pull --allow-unrelated-histories
 git push origin
 ```
+
