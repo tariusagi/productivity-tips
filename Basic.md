@@ -18,6 +18,11 @@
   git config --global user.name "Peter Pan"
   ```
 
+## Showing changes
+
+- Show simple commit logs (only show commit messages): `git log`
+- Show changed files along with commits log: `git log --name-only`
+
 ## Undoing changes
 
 - **(DANGEROUS)** Discard un-staged local changes (changes are not staged yet): `git restore <file>`. This action will discard changes to local `file` and replace its content with the staged content. This action is marked dangerous, because it destroys local changes and **unrecoverable**.
@@ -31,4 +36,5 @@
 2. Pull changes from remote and merge into local: `git pull`
 3. Check for changes from remote:  run `git fetch` first, then `git diff origin main`
 4. Push changes to remote: `git push origin`
+5. Change remote URL: `git remote set-url origin <new_url>`
 
