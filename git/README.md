@@ -1,4 +1,8 @@
 # Basic Git commands for daily uses
+This document show basic command for daily uses. There're also other topics:
+- [Repository migration](./Migration.md).
+- [Merge unrelated branches](./Unrelated-Merge.md).
+
 ## Setting up a repository
 - Clone a repo: `git clone <URL>`
 - Initialize a git repo in the current directory: `git init`
