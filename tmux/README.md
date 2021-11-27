@@ -33,10 +33,13 @@ To select text, click and drag the left mouse over the desired text to highlight
 
 Some program doesn't support live text select by mouse. In that case, activate copy mode before selecting text.
 
+*NOTE: the copied text work within its `tmux` session only. It can't be pasted into anywhere else, for example Windows' Notepad or not-a-tmux shell.*
 ## Select text with keyboard
 First, activate copy mode. Then use arrow keys to move to the start of the desired text, press `Space` to start selecting (a yellow highlight will be shown), then move the cursor to expand the selection and finally press `Enter` to copy the selected text into `tmux`'s clipboard and also deactivate the copy mode.
 
 `vi` key scheme can also be used, such as `h j k l w b` for movement.
+
+*NOTE: the copied text work within its `tmux` session only. It can't be pasted into anywhere else, for example Windows' Notepad or not-a-tmux shell.*
 
 ## Paste the copied text
 To paste the copied text, press `Prefix ]`, and the text will be pasted into the current cursor position.
