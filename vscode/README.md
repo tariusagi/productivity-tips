@@ -3,6 +3,8 @@
 ## Shortcut keys
 ### General
 - Open Command pallette: `Ctrl + Shift + P`
+- Open folder: `Ctrl + K, Ctrl + O`
+- Open recent: `Ctrl + R`
 
 ### Display
 - Toggle fullscreen: `F11`
