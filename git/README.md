@@ -1,7 +1,4 @@
-# Basic usages
-This document show basic command for daily uses. There're also other topics:
-- [Repository migration](./Migration.md).
-- [Merge unrelated branches](./Unrelated-Merge.md).
+# Basic
 
 ## Setting up a repository
 - Clone a repo: `git clone <URL>`
@@ -16,7 +13,7 @@ This document show basic command for daily uses. There're also other topics:
   ```sh
   git config --global user.name "Peter Pan"
   ```
-## Showing changes
+## Logs
 - Show commit logs: `git log`.
 - Show changes along with commits logs: `git log --name-only`.
 
@@ -66,7 +63,7 @@ Which means:
 - Discard **all** changes: `git reset --hard` **(VERY DANGEROUS)**. This action replace all local and staged changes to current respository with HEAD commit, and only *untracked* files and directories are left *untouched*. It's *unrecoverable*.
 - Remove **untracked** changes: `git clean -fd [path]` **(VERY DANGEROUS)**. This action *recursively* removes all *untracked* changes from `path` or current directory if `path` was not given. If you want to remove *ignored* files and folders as well, include `-x`. it's *unrecoverable*, so it should be checked with `-n` first, such as `git clean -fdn`, which lists files and directories that it would remove without actually doing it.
 
-## Work with remote repo
+## Remote repo
 1. Show remote URLs: `git remote -v`.
 2. Pull changes from remote and merge into local, active branch: `git pull [origin remote-branch-name]`. If `origin remote-branch-name` was given, then git will try to fetch and merge the local active branch into that specific remote branch. Otherwise, it will use the default, which means the remote branch that is tracking the local active branch.
 3. Check for changes from remote:  run `git fetch` to get latest content from remote origin first, then `git diff origin [branch-name]` to show differences against given branch. If no branch was given, then the active branch will be used.
