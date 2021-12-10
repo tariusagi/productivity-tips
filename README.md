@@ -6,3 +6,4 @@ Tips for being productive in various programs and situations:
 - [Vim](./vim/README.md).
 - [Visual Studio Code](./vscode/README.md).
 - [WSL](./wsl/README.md).
+- [X.org](./X/README.md).
