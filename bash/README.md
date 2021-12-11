@@ -5,7 +5,7 @@ To capture the output of a command or chain of commands and put it into a variab
 ```sh
 output=$([commands])
 ```
-The `()` is called a subshell.
+The `()` is called a *subshell*.
 
 For example:
 ```sh
@@ -135,4 +135,43 @@ while IFS= read -r -u3 line; do
 			;;
 	esac
 done 3< <(ls -lh)
+```
+## Create a mutex with flock
+Base on this [article](https://linuxaria.com/howto/linux-shell-introduction-to-flock).
+
+The following script wait on a mutex created by `flock`:
+```sh
+#!/bin/bash
+set -e
+scriptname=$(basename $0)
+lock="/tmp/${scriptname}"
+exec 9>$lock
+echo Acquiring lock...
+flock 9
+echo Lock acquired.
+# Put current PID to lock file.
+echo $$ 1>&200
+# TODO: Put the critical code here.
+echo Do something
+echo End.
+```
+The following script try to acquire the mutex but doesn't wait:
+```sh
+#!/bin/bash
+set -e
+scriptname=$(basename $0)
+lock="/tmp/${scriptname}"
+exec 9>$lock
+echo Acquiring lock...
+flock -n 9 || (
+	echo Could not acquire the lock. Another process must be running.
+	# Terminate the script.
+	exit 1
+)
+echo Lock acquired.
+# Put current PID to lock file.
+echo $$ 1>&200
+# TODO: Put the critical code here.
+echo Do something
+echo End.
 ```
