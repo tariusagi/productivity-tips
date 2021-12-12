@@ -46,3 +46,7 @@ On the sending end:
 ```sh
 gzip -c infile | nc -w3 <desctination host> 1234
 ```
+Or to show transfer speed, include `pv`:
+```sh
+gzip -c infile | pv | nc -w3 <desctination host> 1234
+```
