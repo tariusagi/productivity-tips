@@ -1,6 +1,8 @@
 # Bash tips
 A great short reference to Bash can be found [here](https://www.computerhope.com/unix/ubash.htm).
 
+The full document can be found [here](https://www.gnu.org/software/bash/manual/bash.html).
+
 ## Capture the output of commands with subshell into a variable
 To capture the output of a command or chain of commands and put it into a variable, use:
 ```sh
@@ -47,6 +49,15 @@ command 2>/dev/null
 ```
 The above line redirect `command`'s `stderr` to `/dev/null`, effectively discard all of its output.
 
+### Close file descriptor
+Just make a duplicate of `-`. For example:
+```sh
+<&-  # Close stdin.
+>&-  # Close stdout.
+2>&- # Close sderr.
+9>&- # Close file descriptor 9.
+```
+
 ## Suppress leading tabs in here document
 See [this](https://tldp.org/LDP/abs/html/here-docs.html#LIMITSTRDASH).
 
@@ -60,6 +71,21 @@ print_err() {
 }
 ```
 
+## Do a loop for a number of times
+If times of looping is fixed, use:
+```sh
+for i in {1..100}; do
+	# Do something.
+done
+```
+If times is in variable, use `seq`:
+```sh
+count=100
+for i in $(seq $count); do
+	# Do something
+done
+```
+
 ## Get a script's absolute path, directory and base name
 ```sh
 #!/bin/bash
@@ -67,6 +93,7 @@ SCRIPT_FULLPATH=$(readlink -f $0)
 SCRIPT_DIR="$(dirname $SCRIPT_FULLPATH)"
 SCRIPT_NAME=$(basename $SCRIPT_FULLPATH)
 ```
+
 ## Handle commandline argument with `getopts`
 ```sh
 #!/bin/bash
@@ -134,7 +161,7 @@ case $response in
 		;;
 esac
 ```
-## Use nested `read`
+## Read user input inside a read loop
 In the following code, there are 2 `read`, the first one picks up lines from the output of `ls` command, and the second one read the user response for a confirmation.
 
 By default, `read` command use standard input (stdin) file handle, so when the second `read` try to get user response from stdin, it will instead pick up data from the output of `ls` command, which was redirect to the stdin of the `while` loop for the fist `read` (see the last line). Because there're still data ready to be read from stdin, the second `read` will return immediately with `response` picked up from stdin (which should be the second line) instead of waiting for real user input.
