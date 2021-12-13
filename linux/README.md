@@ -50,3 +50,19 @@ Or to show transfer speed, include `pv`:
 ```sh
 gzip -c infile | pv | nc -w3 <desctination host> 1234
 ```
+
+## Truncate or write to privileged file with sudo
+If we have a `/var/log/myprog.log` which only `root` have write access, and we try to truncate it with `sudo cat /dev/null > /var/log/myprog.log`, we will get the "permission denied" error. Why?
+
+It's because `sudo` only applies to the fist command, which is `cat`, after that, `sudo` terminate and return to shell, which does not have root privilege, therefore the redirection will fail.
+
+To achieve the desirable result, use this command instead:
+```sh
+sudo tee /var/log/myprog.log < /dev/null
+```
+In this command, shell will redirect `/dev/null` as the input of `sudo`, which execute `tee` and `tee` will write the input, which is `null`, to the log file.
+
+Similarly, to write something to that log file, use this:
+```sh
+echo Some text | sudo tee /var/log/myprog.log
+```
