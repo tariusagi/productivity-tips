@@ -211,7 +211,7 @@ Explaination:
 - `set -e`: tell Bash to exit immediately on any non-zero exit code from any pipeline. See [The Set Builtin](https://www.gnu.org/software/bash/manual/html_node/The-Set-Builtin.html).
 - `exec {fd}>$lock`: try to open a file at the path in `$lock` and assign the file descriptor to the variable `fd`. This file is open in appending mode, because we will put the PID of the locking instance, and we don't want it to be truncated each time another instance try to open it (`flock` does not protect the file content, it just use that file as a mean to manage the mutex).
 - `flock $fd`: try to acquire a lock which tie to the file descriptor in `$fd` with `flock` command. In default mode, `flock` will wait until the lock can be acquired. Other option, like return immediately if the lock is still locked, is shown further down. See [flock manpage](https://man7.org/linux/man-pages/man1/flock.1.html).
-- `echo $$ 1>&$fd`: append running instance's PID in the lock file. Although `>`, not `>>` is used here, but since the lock file was opened in append mode, its existing content will preserved.
+- `echo $$ 1>&$fd`: write running instance's PID in the lock file.
 
 The following script try to acquire the mutex but doesn't wait:
 ```sh
@@ -219,7 +219,7 @@ The following script try to acquire the mutex but doesn't wait:
 set -e
 scriptname=$(basename $0)
 lock="/tmp/${scriptname}"
-exec {fd}>>$lock
+exec {fd}>$lock
 echo Acquiring lock...
 flock -n $fd || (
 	echo Could not acquire the lock. Another process must be running.
@@ -233,3 +233,6 @@ echo $$ 1>&$fd
 echo Do something
 echo End.
 ```
+
+## Use ANSI colors
+My [skeleton.sh](https://github.com/tariusagi/shellutils/blob/main/skeleton.sh) script has a collection of functions to easily output ANSI colored texts and backgrounds. Check the its source for usage. Run `./skeleton.sh -c -h` or `./skeleton.sh -c -n Peter` for demonstration.
