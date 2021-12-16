@@ -43,9 +43,7 @@
 
 ## Useful extensions
 
-### markdownlint by David Anson
-
-Link [here](https://marketplace.visualstudio.com/items?itemName=DavidAnson.vscode-markdownlint).
+### [markdownlint by David Anson](https://marketplace.visualstudio.com/items?itemName=DavidAnson.vscode-markdownlint)
 
 Should include this `.markdownlint.json` to ignore code blocks while linting:
 
@@ -60,19 +58,18 @@ Should include this `.markdownlint.json` to ignore code blocks while linting:
 }
 ```
 
-### Markdown Image by Hancel.Lin
+### [Markdown Image by Hancel.Lin](https://marketplace.visualstudio.com/items?itemName=hancel.markdown-image)
 
-![picture 1](../images/fed088fc9006b5fc692d4403c4ef70c8f283aac4f6257a0407a7b0f46c01c237.png)  
-
-This is a amazing extension by Hancel.Lin, which can be found
-[here](https://marketplace.visualstudio.com/items?itemName=hancel.markdown-image).
-It allows pasting image directly from clipboard, and automatically create a
-`./images` directory at the same locatin as the markdown file, and put the
-pasted image there in PNG format, with a name after the picture's hash, such as
+This is a amazing extension, which allows pasting image directly from clipboard,
+and automatically create a `./images` directory at the same locatin as the
+markdown file, then put the pasted image there in PNG format, with a name after
+the picture's hash, such as
 `fed088fc9006b5fc692d4403c4ef70c8f283aac4f6257a0407a7b0f46c01c237.png`
 
-### Highlight by Fabio Spampinato
+### [Highlight by Fabio Spampinato](https://marketplace.visualstudio.com/items?itemName=fabiospampinato.vscode-highlight)
 
-![picture 2](../images/67b8aca94a7031605bd21057a6d164fff87e4fde915cdd0276162f8e977f299d.png)  
-This extension automatically highlight texts such as notes, todos, bugs... It
-can be found [here](https://marketplace.visualstudio.com/items?itemName=fabiospampinato.vscode-highlight).
+This extension automatically highlight texts such as notes, todos, bugs...
+
+### [Markdown Preview Github Styling by Matt Bierner](https://marketplace.visualstudio.com/items?itemName=bierner.markdown-preview-github-styles)
+
+Preview Markdown files in GitHub style.
