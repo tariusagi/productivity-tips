@@ -41,7 +41,40 @@
 - Move to Editor: `Ctrl + 1`
 - Move to Preview: `Ctrl + 2`
 
+## Essential settings
+
+Set these settings using VS Code UI with `Ctrl + ,` or `settings.json`:
+
+```json
+	"editor.insertSpaces": false,
+	"editor.tabSize": 2,
+	"editor.rulers": [ 80	],
+```
+
 ## Useful extensions
+
+### [Todo Tree by Gruntfuggly](https://marketplace.visualstudio.com/items?itemName=Gruntfuggly.todo-tree)
+
+MUST HAVE extension!
+
+Add "NOTE" to the tree by adding it to `todo-tree.general.tags` list in VS
+Code's `settings.json` like this:
+
+```json
+	"todo-tree.regex.regexCaseSensitive": false,
+	"todo-tree.general.tags": [
+		"BUG",
+		"HACK",
+		"FIXME",
+		"TODO",
+		"XXX",
+		"NOTE",
+		"UZI"
+	],
+```
+
+This helps put all of my personal notes into the Todo tree so I can quickly jump
+to review them.
 
 ### [markdownlint by David Anson](https://marketplace.visualstudio.com/items?itemName=DavidAnson.vscode-markdownlint)
 
@@ -56,6 +89,20 @@ Should include this `.markdownlint.json` to ignore code blocks while linting:
 		"code_blocks": false
 	}
 }
+```
+
+Or put this section into VS Code's User or Workbench's `settings.json`:
+
+```json
+	"markdownlint.config": {
+		"default": true,
+		"MD010": {
+			"code_blocks": false
+		},
+		"MD013": {
+			"code_blocks": false
+		}
+	},
 ```
 
 ### [Markdown Image by Hancel.Lin](https://marketplace.visualstudio.com/items?itemName=hancel.markdown-image)
