@@ -1,5 +1,7 @@
 # productivity-tips
+
 Tips for being productive in various programs and situations:
+
 - [Linux](./linux/README.md).
 - [Bash](./bash/README.md).
 - [Git](./git/README.md).
