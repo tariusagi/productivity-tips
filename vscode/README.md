@@ -1,6 +1,6 @@
 # Visual Studio Code tips
 
-## Shortcut keys
+## Default keyboard shortcuts
 
 ### General
 
@@ -41,6 +41,41 @@
 - Move to Editor: `Ctrl + 1`
 - Move to Preview: `Ctrl + 2`
 
+## Custom keyboard shortcuts
+
+To open keyboard shortcuts JSON file, open Command pallette with
+`Ctrl + Shift + P`, type `keyboard shortcuts` and select the JSON option, as
+shown below:
+
+![picture 1](../images/04a32d01894050ac77901b5b340c91b700783aafb8ce4070bbf4dfa7303ee52d.png)
+
+and VS Code will open a `keybindings.json` for editing.
+
+### Open and focus to the Outline panel
+
+Use `Ctrl + Alt + O` to focus to the Outline panel. If the Outline panel is
+hidden, it will be open. This shortcut works when the focus is in an editor.
+
+Put this into `keybindings.json` (requires `multi-command` extension):
+
+```json
+	{
+		"key": "ctrl+alt+o",
+		"command": "extension.multiCommand.execute",
+		"args": {
+			"sequence": [
+				"outline.focus",
+				"outline.focus",
+				"outline.focus"
+			]
+		},
+		"when": "editorTextFocus"
+	}
+```
+
+A
+
+
 ## Essential settings
 
 To open JSON settings, open the Command pallette with `Ctrl + Shift + P`, type
@@ -58,6 +93,10 @@ Set these settings using VS Code UI with `Ctrl + ,` or `settings.json`:
 ```
 
 ## Useful extensions
+
+### [Multi-command by ryuta46](https://marketplace.visualstudio.com/items?itemName=ryuta46.multi-command)
+
+This is a MUST HAVE extension.
 
 ### [Todo Tree by Gruntfuggly](https://marketplace.visualstudio.com/items?itemName=Gruntfuggly.todo-tree)
 
