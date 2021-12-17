@@ -73,9 +73,6 @@ Put this into `keybindings.json` (requires `multi-command` extension):
 	}
 ```
 
-A
-
-
 ## Essential settings
 
 To open JSON settings, open the Command pallette with `Ctrl + Shift + P`, type
