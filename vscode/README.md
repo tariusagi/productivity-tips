@@ -6,7 +6,8 @@
 
 - Open Command pallette: `Ctrl + Shift + P`
 - Open folder: `Ctrl + K, Ctrl + O`
-- Open recent: `Ctrl + R`
+- Open recent: `Ctrl + R`. It's known that the `npm` extension redefines this
+shortcut, uninstall or disable it if neccessary.
 
 ### Display
 
@@ -23,6 +24,8 @@
 - Create new line above: `Ctrl + Shift + Enter`
 - Move a line up: `Alt + Up Arrow`
 - Move a line down: `Alt + Down Arrow`
+- Go to symbol: `Ctrl + Shift + O`. This is very useful for navigating the
+source code symbols, Markdown headings...
 
 ### Tabs
 
