@@ -43,6 +43,12 @@
 
 ## Essential settings
 
+To open JSON settings, open the Command pallette with `Ctrl + Shift + P`, type
+`open settings` and choose the action from the dropdown, as shown in the picture
+below:
+
+![picture 1](../images/493121d3925ff5133cab461d686fd81f8abbc5d70e30d8cc2047ce5e0ead511b.png)  
+
 Set these settings using VS Code UI with `Ctrl + ,` or `settings.json`:
 
 ```json
@@ -117,6 +123,8 @@ the picture's hash, such as
 
 This extension automatically highlight texts such as notes, todos, bugs...
 
-### [Markdown Preview Github Styling by Matt Bierner](https://marketplace.visualstudio.com/items?itemName=bierner.markdown-preview-github-styles)
+### [Markdown Preview Enhanced by Yiyi Wang](https://marketplace.visualstudio.com/items?itemName=shd101wyy.markdown-preview-enhanced)
 
-Preview Markdown files in GitHub style.
+A MUST HAVE, amazing extension for Markdown documents. Right-click on the
+preview to access more functionalities such as open in browser, export to PDF,
+changing preview theme (especially GitHub themes)...
