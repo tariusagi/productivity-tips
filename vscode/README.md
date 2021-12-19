@@ -73,6 +73,36 @@ Put this into `keybindings.json` (requires `multi-command` extension):
 	}
 ```
 
+### Toggle word wrap
+
+Use `Shift + Alt + W` to toggle word wrap instead of `Alt + Z` to avoid conflict with `Unikey`.
+
+```json
+	{
+		"key": "shift+alt+w",
+		"command": "editor.action.toggleWordWrap"
+	},
+	{
+		"key": "alt+z",
+		"command": "-editor.action.toggleWordWrap"
+	},
+```
+
+### Join lines
+
+Use `Ctrl + J` to join lines, just like in Vim. This override Open Panel command, which is not frequently used.
+
+```json
+	{
+		"key": "ctrl+j",
+		"command": "editor.action.joinLines"
+	},
+	{
+		"key": "ctrl+j",
+		"command": "-workbench.action.togglePanel"
+	},
+```
+
 ## Essential settings
 
 To open JSON settings, open the Command pallette with `Ctrl + Shift + P`, type
@@ -99,19 +129,20 @@ This is a MUST HAVE extension.
 
 MUST HAVE extension!
 
-Add "NOTE" to the tree by adding it to `todo-tree.general.tags` list in VS
-Code's `settings.json` like this:
+Put this in `settings.json` to define tags:
 
 ```json
-	"todo-tree.regex.regexCaseSensitive": false,
+	"todo-tree.regex.regexCaseSensitive": true,
 	"todo-tree.general.tags": [
 		"BUG",
 		"HACK",
 		"FIXME",
 		"TODO",
 		"XXX",
+		"WIP",
+		"IDEA",
 		"NOTE",
-		"UZI"
+		"THINK"
 	],
 ```
 
@@ -158,6 +189,83 @@ the picture's hash, such as
 ### [Highlight by Fabio Spampinato](https://marketplace.visualstudio.com/items?itemName=fabiospampinato.vscode-highlight)
 
 This extension automatically highlight texts such as notes, todos, bugs...
+
+The highlight text should be put between block comment markers such as "/*...*/".
+
+Standalone text will not be highlighted. Highlight text must be inside another text, that's why it needed to be highlighted.
+
+Put this in `settings.json` to highlight:
+
+- TODO: yellow
+- FIXME|FIX|BUG|UGLY|DEBUG|HACK: dark red.
+- REVIEW|OPTIMIZE|TSC: cyan.
+- IDEA|NOTE|THINK: medium orchid.
+
+```json
+"highlight.regexes": {
+		"((?:<!-- *)?(?:#|// @|//|./\\*+|<!--|--|\\* @|{!|{{!--|{{!) *TODO(?:\\s*\\([^)]+\\))?:?)((?!\\w)(?: *-->| *\\*/| *!}| *--}}| *}}|(?= *(?:[^:]//|/\\*+|<!--|@|--|{!|{{!--|{{!))|(?: +[^\\n@]*?)(?= *(?:[^:]//|/\\*+|<!--|@|--(?!>)|{!|{{!--|{{!))|(?: +[^@\\n]+)?))": {
+			"filterFileRegex": ".*(?<!CHANGELOG.md)$",
+			"decorations": [
+				{
+					"overviewRulerColor": "#ffcc00",
+					"backgroundColor": "#ffcc00",
+					"color": "#1f1f1f",
+					"fontWeight": "bold"
+				},
+				{
+					"backgroundColor": "#ffcc00",
+					"color": "#1f1f1f"
+				}
+			]
+		},
+		"((?:<!-- *)?(?:#|// @|//|./\\*+|<!--|--|\\* @|{!|{{!--|{{!) *(?:FIXME|FIX|BUG|UGLY|DEBUG|HACK)(?:\\s*\\([^)]+\\))?:?)((?!\\w)(?: *-->| *\\*/| *!}| *--}}| *}}|(?= *(?:[^:]//|/\\*+|<!--|@|--|{!|{{!--|{{!))|(?: +[^\\n@]*?)(?= *(?:[^:]//|/\\*+|<!--|@|--(?!>)|{!|{{!--|{{!))|(?: +[^@\\n]+)?))": {
+			"filterFileRegex": ".*(?<!CHANGELOG.md)$",
+			"decorations": [
+				{
+					"overviewRulerColor": "#cc0000",
+					"backgroundColor": "#cc0000",
+					"color": "#1f1f1f",
+					"fontWeight": "bold"
+				},
+				{
+					"backgroundColor": "#cc0000",
+					"color": "#1f1f1f"
+				}
+			]
+		},
+		"((?:<!-- *)?(?:#|// @|//|./\\*+|<!--|--|\\* @|{!|{{!--|{{!) *(?:REVIEW|OPTIMIZE|TSC)(?:\\s*\\([^)]+\\))?:?)((?!\\w)(?: *-->| *\\*/| *!}| *--}}| *}}|(?= *(?:[^:]//|/\\*+|<!--|@|--|{!|{{!--|{{!))|(?: +[^\\n@]*?)(?= *(?:[^:]//|/\\*+|<!--|@|--(?!>)|{!|{{!--|{{!))|(?: +[^@\\n]+)?))": {
+			"filterFileRegex": ".*(?<!CHANGELOG.md)$",
+			"decorations": [
+				{
+					"overviewRulerColor": "#00ccff",
+					"backgroundColor": "#00ccff",
+					"color": "#1f1f1f",
+					"fontWeight": "bold"
+				},
+				{
+					"backgroundColor": "#00ccff",
+					"color": "#1f1f1f"
+				}
+			]
+		},
+		"((?:<!-- *)?(?:#|// @|//|./\\*+|<!--|--|\\* @|{!|{{!--|{{!) *(?:IDEA|NOTE|THINK)(?:\\s*\\([^)]+\\))?:?)((?!\\w)(?: *-->| *\\*/| *!}| *--}}| *}}|(?= *(?:[^:]//|/\\*+|<!--|@|--|{!|{{!--|{{!))|(?: +[^\\n@]*?)(?= *(?:[^:]//|/\\*+|<!--|@|--(?!>)|{!|{{!--|{{!))|(?: +[^@\\n]+)?))": {
+			"filterFileRegex": ".*(?<!CHANGELOG.md)$",
+			"decorations": [
+				{
+					"overviewRulerColor": "#ba55d3",
+					"backgroundColor": "#ba55d3",
+					"color": "#1f1f1f",
+					"fontWeight": "bold"
+				},
+				{
+					"backgroundColor": "#ba55d3",
+					"color": "#1f1f1f"
+				}
+			]
+		}
+	},
+```
+
 
 ### [Markdown Preview Enhanced by Yiyi Wang](https://marketplace.visualstudio.com/items?itemName=shd101wyy.markdown-preview-enhanced)
 
