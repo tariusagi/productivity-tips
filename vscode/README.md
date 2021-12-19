@@ -269,7 +269,6 @@ Put this in `settings.json` to highlight:
 	},
 ```
 
-
 ### [Markdown Preview Enhanced by Yiyi Wang](https://marketplace.visualstudio.com/items?itemName=shd101wyy.markdown-preview-enhanced)
 
 A MUST HAVE, amazing extension for Markdown documents. Right-click on the
