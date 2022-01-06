@@ -100,3 +100,36 @@ Similarly, to write something to that log file, use this:
 ```sh
 echo Some text | sudo tee /var/log/myprog.log
 ```
+
+## Capture output as a terminal
+
+Some programs behave differently if it knows the output is not a terminal, such
+as discarding all ANSI color codes. Therefore if we redirect its output to a
+file, the ANSI color codes will not be there. To capture that program's output
+into a file while make it think it's still output to a terminal, we use the
+`script` program (should be readily available in all distros).
+
+For example:
+
+```sh
+sudo script -a -f -q -c 'dmesg -w' /tmp/dmesg.log
+```
+
+The above command run `dmesg -w` command and continuously append its output to
+`/tmp/dmesg.log` as if it was running in a normal terminal, thus the log file
+will retains all of its ANSI colors output. The `-f` option make sure the log
+file is updated immediately after each write from the output. This log file can
+be monitored with `tail -f /tmp/dmesg.log` or `less -R +F /tmp/dmesg.log`.
+
+## Use less instead of tail
+
+`tail -f` is usually used to monitor log file in real time. But it doesn't have
+sophisticated search and filter functionality of `less`. Use `less -R +F` to
+have the same effect as `tail -f`. For example:
+
+```sh
+less -R +F /var/log/dmesg
+```
+
+The `-R` option tell `less` to inteprete ANSI codes, while `+F` tell it to
+continuously follow that log file's updates.
