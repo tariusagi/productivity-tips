@@ -133,3 +133,36 @@ less -R +F /var/log/dmesg
 
 The `-R` option tell `less` to inteprete ANSI codes, while `+F` tell it to
 continuously follow that log file's updates.
+
+## Working with Bluetooth in CLI
+
+### Connect Bluetooth keyboard
+
+Input the following commands:
+
+1. `bluetoothctl`
+2. `pairable on`
+3. `scan on`. Then wait until BT device (keyboard) is shown (don’t forget to turn on the keyboard pairing mode now). You should see it's address as `xx:xx:xx:xx:xx:xx`.
+4. `scan off`
+5. `agent on`
+6. `pair xx:xx:xx:xx:xx:xx`. Now you are requested to input a number (6 digits) using your BT keyboard, ended with `Enter` key! A *"pairing successful"* should be displayed.
+7. `trust xx:xx:xx:xx:xx:xx`
+8. `connect xx:xx:xx:xx:xx:xx`. A *"connection successful"* message should be displayed.
+9. Finally, run `info xx:xx:xx:xx:xx:xx` to view connection info.
+10. Exit and reboot.
+
+### Remove Bluetooth device
+
+Run the following commands:
+
+- `bluetoothctl`. This open the Bluetooth controller prompt, `[bluetooth]`.
+- `[bluetooth]paired-devices`. This command will list currently paired devices, such as:
+
+```txt
+Device 34:88:5D:7A:7C:A2 Keyboard K380 
+Device 34:88:5D:56:46:33 Bluetooth Mouse M557
+```
+
+- To remove a paired device, run `[bluetooth]remove <address>`, where `<address>` is the address (MAC) of the device to be unpaired.
+
+NOTE: bluetooth config is stored at `/var/lib/bluetooth`. In that directory, there’s a directory for each controller, named after their ID, such as `00:1A:7D:DA:71:15`, and in the controller directory store the paired devices info, each in a directory named after their ID, too.
