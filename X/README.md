@@ -26,4 +26,6 @@ To run as a non-root user, use `su`. The following run `xterm` as `peter`:
 /usr/bin/xinit /usr/bin/su peter -c /usr/bin/xterm -- :0
 ```
 
-To run the application at boot, use `/etc/rc.local`.
+To run the application at boot, use `/etc/rc.local` or create a systemd service
+with `Type=idle` in `[Service]` section (to make sure it run after everything
+else).
