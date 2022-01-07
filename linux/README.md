@@ -96,10 +96,15 @@ Some programs behave differently if it knows the output is not a terminal, such 
 For example:
 
 ```sh
-sudo script -a -f -q -c 'dmesg -w' /tmp/dmesg.log
+sudo script -aefqc 'dmesg -w' /tmp/dmesg.log
 ```
 
-The above command run `dmesg -w` command and continuously append its output to `/tmp/dmesg.log` as if it was running in a normal terminal, thus the log file will retains all of its ANSI colors output. The `-f` option make sure the log file is updated immediately after each write from the output. This log file can be monitored with `tail -f /tmp/dmesg.log` or `less -R +F /tmp/dmesg.log`.
+The above command run `dmesg -w` command and continuously append its output to `/tmp/dmesg.log` as if it was running in a normal terminal, thus the log file will retains all of its ANSI colors output. This log file can be monitored with `tail -f /tmp/dmesg.log` or `less -R +F /tmp/dmesg.log`. The additonal options are:
+
+- a: append to log file.
+- e: use exit code of the child command.
+- f: flush writes to log file immediately (no buffering).
+- q: do not print script start and end message.
 
 ## Use less instead of tail
 
