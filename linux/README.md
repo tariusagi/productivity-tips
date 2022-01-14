@@ -126,6 +126,10 @@ sudo conspy
 
 to take control of the physical console. This trick is perfect for working with a Linux computer that you don't have access to its keyboard.
 
+## Quietly check service status
+
+Use `systemctl is-active --quiet myservice`. It will return with zero exit code if `myservice` is active, or non-zero otherwise. See this systemd manual [section](https://www.freedesktop.org/software/systemd/man/systemctl.html#is-active%20PATTERN%E2%80%A6)
+
 ## Working with Bluetooth in CLI
 
 ### Connect Bluetooth keyboard
