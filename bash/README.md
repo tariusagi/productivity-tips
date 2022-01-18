@@ -113,6 +113,57 @@ print_err() {
 }
 ```
 
+## Disable parameter substitution in here document
+
+Quoting or escaping the "limit string" at the head of a here document disables parameter substitution within its body. It is useful to generate script or program source code. Example:
+
+```sh
+VERSION=1.0
+
+cat <<"EOM"
+This is a Bash script.
+It's version is $VERSION
+EOM
+```
+
+Will literally output:
+
+```txt
+This is a Bash script.
+It's version is $VERSION
+```
+
+instead of:
+
+```txt
+This is a Bash script.
+It's version is 1.0
+```
+
+The same result can be achieved with escaping the limit string. Example:
+
+```sh
+VERSION=1.0
+
+cat <<\EOM
+This is a Bash script.
+It's version is $VERSION
+EOM
+```
+
+But this is not readable as using quotes. So quoting is prefered.
+
+The dash can also be used with quoting or escaping limit string to suppress leading tabs. Example:
+
+```sh
+print_usage() {
+	cat <<-"ENDOFERR"
+		Usage: program [options]
+		If $OPTIONS was defined, its will replace the command line arguments.
+	ENDOFERR
+}
+```
+
 ## Do a loop for a number of times
 
 If times of looping is fixed, use:
