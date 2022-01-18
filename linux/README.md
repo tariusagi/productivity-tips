@@ -116,6 +116,14 @@ less -R +F /var/log/dmesg
 
 The `-R` option tell `less` to inteprete ANSI codes, while `+F` tell it to continuously follow that log file's updates.
 
+Another use case is to use less to filter and hight light search pattern all while monitoring a file. For example:
+
+```sh
+sudo less -R +\&CRON^M/$USER^MSF /var/log/syslog
+```
+
+will filter out just lines that have "CRON" in them, and within the result, high light current user name, all while monitoring `/var/log/syslog`. In the above example, `^M` means `Ctrl-M` (you literally press `Ctrl-M` while typing that command).
+
 ## Remote control a physical console (YAY!)
 
 The `conspy` program allow you to take control of a Linux virtual console, including the physical one (real keyboard, real monitor). Install it with `sudo apt install conspy`, and simply run:
