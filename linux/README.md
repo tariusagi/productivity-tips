@@ -1,5 +1,33 @@
 # General Linux tips
 
+## Mount any block device with fstab
+
+To make a block device mount permanent at boot, edit the `/etc/fstab` and add:
+
+```fstab
+UUID=<UUID> <mount point> <fs type> uid=1000,gid=1000,umask=0022,sync,auto,rw 0 0
+```
+
+where:
+
+- `UUID` is the UUID of the disk or partition to mount. Use `blkid` to view a list of available block devices along with their UUID. Instead of UUID, `PARTUUID` can also be used.
+- `mount point` is a directory where the block device will be mounted. This directory must be created first.
+- `fs type` is the type of file system (exfat, ntfs, ext4...). Use `blkid` to check.
+- `uid`, `gid` are the user's ID and group's ID to be set as the owner of the mount.
+- `umask` is the default file permission mask.
+
+Example:
+
+```fstab
+UUID=E34F-5608 /home/phuong/usb/WD6T01 exfat uid=1000,gid=1000,umask=0022,sync,auto,rw 0 0
+```
+
+or
+
+```fstab
+PARTUUID=d9d5f18c-01 /mnt/EXT-WD2T ntfs uid=1000,gid=1000,umask=0022,sync,auto,rw 0 0
+```
+
 ## Mount a Samba/CIFS network share
 
 Samba/CIFS requires `cifs-utils` package. Install it with `sudo apt install cifs-utils`.
