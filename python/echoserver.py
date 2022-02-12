@@ -61,15 +61,15 @@ def main():
 		s.bind((host, port))
 		s.listen()
 		print("Server listening on %s:%s." % (host, port))
-		while not quit:
-			print('Accepting connection...')
+		while True:
+			print('Waiting for new connection...')
 			conn, addr = s.accept()
 			# A new client.
 			print('Connected by', addr)
-			conn.sendall(f"{name}: Hi. Say something or \"quit\" to end.\n".encode())
+			conn.sendall(f"{name}: Hi! I will repeat anything you say. Say \"quit\" to end.\n".encode())
 			with conn:
-				print('Receiving...')
-				while not quit:
+				print('Receiving data...')
+				while True:
 					data = conn.recv(1024)
 					if data:
 						print('Received some data')
@@ -79,21 +79,17 @@ def main():
 						# Handle the extracted command.
 						if msg == "quit":
 							# Quit command received.
-							print("Quitting...")
+							print("Quit command received.")
 							conn.sendall(f"{name}: OK, bye!\n".encode())
-							quit = True
+							conn.shutdown(socket.SHUT_RDWR)
 							break
 						else:
 							# Echo back or do something else.
 							conn.sendall(f"{name}: Received \"{msg}\"\n".encode())
 					else:
-						print('Nothing received. Client might close the connection.')
+						print('No data received. Shutting down connection...')
+						conn.shutdown(socket.SHUT_RDWR)
 						break
-				# Close this client's connection.
-				print('Closing client connection...')
-				conn.shutdown(socket.SHUT_RDWR)
-				conn.close()
-				print('Client connection closed.')
 		# End of service loop. Close the socket.
 		print('End of service. Shutting down...')
 		s.shutdown(socket.SHUT_RDWR)
