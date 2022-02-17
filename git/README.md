@@ -23,6 +23,7 @@ git config --global user.name "Peter Pan"
 
 - Show commit logs: `git log`.
 - Show changes along with commits logs: `git log --name-only`.
+- Show commits graph with log: `git log --oneline --graph --color --all --decorate`.
 
 ### Diff
 
