@@ -63,8 +63,8 @@ NOTES:
 
 - `x11vnc` doesn’t work well with `gdm`. Use `lightdm` instead. In Ubuntu, `sudo apt install lightdm` and choose to use `lightdm` instead of `gdm`.
 - On Ubuntu GNOME desktop, disable Wayland first. Edit `/etc/gdm3/custom.conf` and uncomment line `WaylandEnable=false` and reboot to take effect.
-- On Xubuntu/Xfce, to fix screen update delay (few seconds), disable display compositing by uncheck `Window Manager Tweaks\Compositor\Enable display compositing`. 
+- On Xubuntu/Xfce, to fix screen update delay (few seconds), disable display compositing by uncheck `Window Manager Tweaks\Compositor\Enable display compositing`.
 - Test running `x11vnc` as root (use the command at `ExecStart`) first to make sure it work before setting it up as a service. If it failed with `xauth: file /root/.Xauthority does not exist`, then change `-auth guess` to `-auth /var/run/lightdm/root/:0` may help (this is for LightDM display manager, for other display manager, the actual path may change).
-- If `x11vnc` failed with `shmget: Function not implemented`, then add `-noshm` argument will resolve this. 
+- If `x11vnc` failed with `shmget: Function not implemented`, then add `-noshm` argument will resolve this.
 - Use `-rfbauth` option to read password from file instead of passing `-passwd PASSWORD` on the command line.
 - Omit the `-passwd` if no authentication is needed.
