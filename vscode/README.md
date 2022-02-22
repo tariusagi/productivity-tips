@@ -274,3 +274,7 @@ Put this in `settings.json` to highlight:
 A MUST HAVE, amazing extension for Markdown documents. Right-click on the
 preview to access more functionalities such as open in browser, export to PDF,
 changing preview theme (especially GitHub themes)...
+
+### [Git Graph by mhutchie](https://marketplace.visualstudio.com/items?itemName=mhutchie.git-graph)
+
+A MUST HAVE extension for working with Git in VS Code. It adds a button in Source Control panel to show a project's Git commits graphs.
