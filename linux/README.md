@@ -1,5 +1,45 @@
 # General Linux tips
 
+## Mount a partition in a disk image
+
+To mount a partiton in a disk image, we need to find the start offset of that partition with `fdisk`, then use `losetup` to bind the partition into a loopback device, and finally, use `mount` to mount that loopback device to a mount point and start using it.
+
+First, find the start offset of the partition with `fdisk`, example:
+
+```sh
+$ sudo fdisk -lu disk.img
+Disk disk.img: 6.65 GiB, 7141847552 bytes, 13948921 sectors
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disklabel type: dos
+Disk identifier: 0x735894a1
+
+Device                        Boot  Start      End  Sectors  Size Id Type
+disk.img1        8192   532479   524288  256M  c W95 FAT32 (LBA)
+disk.img2      532480 13948920 13416441  6.4G 83 Linux
+```
+
+Now, we want to mount the second partition, which starts at sector `532480`. Times it with sector size, which is `512` bytes, to get the start offset in bytes. Then use it with `losetup`, like this:
+
+```sh
+sudo losetup -o $((532480 * 512)) /dev/loop0 disk.img
+```
+
+Finally, mount and start using it:
+
+```sh
+sudo mkdir /mnt/loop
+sudo mount /dev/loop0 /mnt/loop/
+```
+
+When we're done with it, umount and unbind:
+
+```sh
+sudo umount /dev/loop0
+sudo losetup -d /dev/loop0
+```
+
 ## Mount any block device with fstab
 
 To make a block device mount permanent at boot, edit the `/etc/fstab` and add:
