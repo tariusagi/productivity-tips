@@ -35,14 +35,15 @@ txt_list=$(
 
 ## Group multiple commands
 
-To run multiple commands without creating a subshell, use curly braces.
-For example:
+To run multiple commands without creating a subshell, use Bash's grouping construct: the curly braces. For example:
 
 ```sh
 source /usr/local/lib/mylib.sh
 test $? -eq 0 || { >&2 echo ERROR: library not found; exit 1; }
 echo mylib.sh was loaded
 ```
+
+The commands within the curly braces will be executed in the same environment as the main script, whereas commands within parentheses will be executed in a separated environment (a subshell).
 
 Note that `{` and `}` are *keywords*, so they must be separated with the list of
 commands by at least one space, and the last command must be follow by `;`
@@ -164,6 +165,20 @@ print_usage() {
 }
 ```
 
+## One-liner if then else
+
+Use logical expressions `&&` and `||` to create this effect:
+
+```sh
+test $(id -u) -eq 0 && echo Is root || echo Not root
+```
+
+To run multiple commands inside each phrase, place them within curly braces (see [Group multiple commands](#group-multiple-commands)):
+
+```sh
+test $(id -u) -eq 0 && { echo Is root; exit 0; } || { echo Not root; exit 1; }
+```
+
 ## Do a loop for a number of times
 
 If times of looping is fixed, use:
@@ -180,6 +195,45 @@ If times is in variable, use `seq`:
 count=100
 for i in $(seq $count); do
 	# Do something
+done
+```
+
+Or use C-style for loops with double-brackets construct:
+
+```sh
+LIMIT=10
+# In this syntax, variable doesn't need to be prepended with $.
+for ((a = 1; a <= LIMIT; a++))
+do
+  echo $a of $LIMIT
+done
+
+# We can use commas to manipulatate multiple variables simultaneously.
+for ((a = 1, b = 1; a <= LIMIT; a++, b += 2))
+do
+  echo a=$a, b=$b, limit = $LIMIT
+done
+```
+
+## Until loop
+
+Usually `while` loop is more popular, but don't forget we have `util` loop, which is the opposite of `while` loop. Use it to make the code look more logical, such as:
+
+```sh
+# Instead of:
+LIMIT=10
+while ! [ $a -eq $LIMIT]
+do
+  let a++
+	echo a = $a
+done
+
+# Do this:
+LIMIT=10
+until [ $a -eq $LIMIT]
+do
+  let a++
+	echo a = $a
 done
 ```
 
