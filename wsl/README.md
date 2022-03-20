@@ -1,5 +1,9 @@
 # Tips for Windows Subsystem for Linux
 
+## Disable beep
+
+To disable the beep in bash you need to uncomment (or add if not already there) the line `set bell-style none` in your `/etc/inputrc` file. It will take effect next time using the shell.
+
 ## Mount Windows drive
 
 To mount an existing drive, such as E:, to a mount point, such as `/mnt/e`, in
