@@ -6,6 +6,17 @@
 - To boot into console: `sudo systemctl set-default multi-user.target`
 - Check current boot target: `sudo systemctl get-default`
 
+## Automatically run a program or script after LXDE login
+
+Edit `/etc/xdg/lxsession/LXDE-pi/autostart` and put the path to the program./script before `@xscreensaver -no-splash`. Change `pi` to the intended user if the name is not `pi`.
+
+```txt
+@lxpanel --profile LXDE-pi
+@pcmanfm --desktop --profile LXDE-pi
+/home/pi/bin/homecam
+@xscreensaver -no-splash
+```
+
 ## Run an X application without desktop manager
 
 Running an X application without a desktop manager like gdm, lightdm... means
