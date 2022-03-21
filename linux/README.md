@@ -223,16 +223,73 @@ Input the following commands:
 9. Finally, run `info xx:xx:xx:xx:xx:xx` to view connection info.
 10. Exit and reboot.
 
-### Remove Bluetooth device
+### Connect Bluetooth game controller
 
-Run the following commands:
-
-- `bluetoothctl`. This open the Bluetooth controller prompt, `[bluetooth]`.
-- `[bluetooth]paired-devices`. This command will list currently paired devices, such as:
+For a game controller that support Bluetooth, such as the PlayStation 3/4 Dualshock wireless controller, run `bluetoothctl` and  enter these commands at its prompt:
 
 ```txt
+[bluetooth]# agent DisplayYesNo
+Agent registered
+[bluetooth]# default-agent
+Default agent request successful
+[bluetooth]# power on
+Changing power on succeeded
+[CHG] Controller 00:1A:7D:DA:71:15 Powered: yes
+[bluetooth]# discoverable on
+Changing discoverable on succeeded
+[CHG] Controller 00:1A:7D:DA:71:15 Discoverable: yes
+[bluetooth]# pairable on
+Changing pairable on succeeded
+[bluetooth]# scan on
+Discovery started
+[CHG] Device 98:B6:E9:5C:D2:DC RSSI: -68
+[CHG] Device 98:B6:E9:5C:D2:DC UUIDs:
+        00001124-0000-1000-8000-00805f9b34fb
+        00001200-0000-1000-8000-00805f9b34fb
+[bluetooth]# devices
+Device 98:B6:E9:5C:D2:DC Wireless Controller
+[bluetooth]# pair 98:B6:E9:5C:D2:DC
+Attempting to pair with 98:B6:E9:5C:D2:DC
+[CHG] Device 98:B6:E9:5C:D2:DC Connected: yes
+[CHG] Device 98:B6:E9:5C:D2:DC UUIDs:
+        00001124-0000-1000-8000-00805f9b34fb
+        00001200-0000-1000-8000-00805f9b34fb
+[CHG] Device 98:B6:E9:5C:D2:DC Paired: yes
+Pairing successful
+[CHG] Device 98:B6:E9:5C:D2:DC Connected: no
+[bluetooth]# trust 98:B6:E9:5C:D2:DC
+[CHG] Device 98:B6:E9:5C:D2:DC Trusted: yes
+Changing 98:B6:E9:5C:D2:DC trust succeeded
+[bluetooth]# info 98:B6:E9:5C:D2:DC
+Device 98:B6:E9:5C:D2:DC
+        Name: Wireless Controller
+        Alias: Wireless Controller
+        Class: 0x002508
+        Icon: input-gaming
+        Paired: yes
+        Trusted: yes
+        Blocked: no
+        Connected: no
+        LegacyPairing: no
+        UUID: Human Interface Device... (00001124-0000-1000-8000-00805f9b34fb)
+        UUID: PnP Information           (00001200-0000-1000-8000-00805f9b34fb)
+        Modalias: usb:v054Cp09CCd0100
+[bluetooth]# scan off
+[bluetooth]# quit
+```
+
+Note that the pair command may fail with "AuthenticationTimeout" error. Wait until the controller is off, then turn its pairing mode on and try again. It may work after several attempts.
+
+### Remove Bluetooth device
+
+Run the following commands at the `bluetoothctl` prompt:
+
+```txt
+[bluetooth]# paired-devices
 Device 34:88:5D:7A:7C:A2 Keyboard K380 
 Device 34:88:5D:56:46:33 Bluetooth Mouse M557
+[bluetooth]# remove 34:88:5D:56:46:33
+[bluetooth]# quit
 ```
 
 - To remove a paired device, run `[bluetooth]remove <address>`, where `<address>` is the address (MAC) of the device to be unpaired.
