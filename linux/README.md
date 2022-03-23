@@ -295,3 +295,58 @@ Device 34:88:5D:56:46:33 Bluetooth Mouse M557
 - To remove a paired device, run `[bluetooth]remove <address>`, where `<address>` is the address (MAC) of the device to be unpaired.
 
 NOTE: bluetooth config is stored at `/var/lib/bluetooth`. In that directory, there’s a directory for each controller, named after their ID, such as `00:1A:7D:DA:71:15`, and in the controller directory store the paired devices info, each in a directory named after their ID, too.
+
+## Force display mode with EDID
+
+Normally, when being connected to an HDMI monitor/TV, Linux will try to get the monitor/TV info from EDID, and will try to set the maximum resolution available. To force different resolution, for example, 720p on a Sony 4K TV, we will have to clone that TV's EDID firmware, tell kernel to load it, and set the desired mode.
+
+First, run the following command to get a list of display connections and their statuses.
+
+```sh
+$ for p in /sys/class/drm/*/status; do con=${p%/status}; echo -n "${con#*/card?-}: "; cat $p; done
+HDMI-A-1: connected
+```
+
+In this example, we have `HDMI-A-1` connected to the TV. Now clone the EDID firmware:
+
+```sh
+sudo cat /sys/class/drm/card0-HDMI-A-1/edid > /lib/firmware/edid/sony4ktv.bin
+```
+
+Note: Create `/lib/firmware/edid` directory first if it does not exist yet.
+
+Now create a initramfs hook to include this firmware in the initramfs so the kernel can find it during boot. Create the file `/etc/initramfs-tools/hooks/edid` with this content:
+
+```sh
+#!/bin/sh
+PREREQ=""
+prereqs()
+{
+    echo "$PREREQ"
+}
+
+case $1 in
+prereqs)
+    prereqs
+    exit 0
+    ;;
+esac
+
+. /usr/share/initramfs-tools/hook-functions
+# Begin real processing below this line
+mkdir -p "${DESTDIR}/lib/firmware/edid"
+cp -a /lib/firmware/edid/sony4ktv.bin "${DESTDIR}/lib/firmware/edid/sony4ktv.bin"
+exit 0
+```
+
+Then, update the initramfs with `sudo update-initramfs -u`.
+
+Finally, force the setting with this kernel command line (for Armbian based OS, put in `/boot/armbianEnv.txt`):
+
+```txt
+extraargs=drm.edid_firmware=HDMI-A-1:edid/sony4ktv.bin video=HDMI-A-1:1280x720D
+```
+
+For more info on this kernel setting, see this [link](https://wiki.archlinux.org/title/kernel_mode_setting), and this [link](https://forums.raspberrypi.com/viewtopic.php?t=327875).
+
+Now, reboot, and the new resolution should be enforced.
