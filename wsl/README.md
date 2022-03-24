@@ -22,7 +22,7 @@ network share. For network share, use the next tip.
 
 Mounting a SMB/CIFS network share in WSL is exactly the same as with a real
 Linux system. Thus, follow the SMB/CIFS sections in this
-[File system tips](../fs/README.md#mount-a-samba-cifs-network-share) document.
+[File system tips](../linux/README.md#mount-a-sambacifs-network-share) document.
 
 ## Add/delete port forwarding rule to WSL
 
