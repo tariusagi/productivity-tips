@@ -35,6 +35,7 @@ git config --global user.name "Peter Pan"
 
 - Show differences between local and staged content: `git diff [path]`.
 - Show differences between staged and HEAD content: `dif diff --staged [path]`.
+- Added `--summary` or `--shortstat` to view shorter info.
 
 The output format basically list chunks of lines which were changed from the local/unstaged content (b) in comparison to the staged/committed content (a). Lines that were in a are marked with minus `-` sign and redcolor, while the new lines (the replacement) in b are marked with plus `+` sign and green color. Lines that don't have markers are unchanged.
 
@@ -94,9 +95,9 @@ Which means:
 specific remote branch. Otherwise, it will use the default, which means the
 remote branch that is tracking the local active branch.
 3. Check for changes from remote:  run `git fetch` to get latest content from
-remote origin first, then `git diff origin [branch-name]` to show differences
+remote origin first, then `git diff origin/[branch-name]` to show differences
 against given branch. If no branch was given, then the active branch will be
-used.
+used. Added `--summary` or `--shortstat` to view shorter info.
 4. Push changes from a branch to remote: `git push origin [branch-name]`. If no
 branch was given, the active one will be used.
 5. Push changes from all branches to remote: `git push --all origin`.
