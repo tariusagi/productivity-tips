@@ -19,6 +19,12 @@ If you want to set these settings globally, add `--global` after `config`, for e
 git config --global user.name "Peter Pan"
 ```
 
+### Staging and committing
+
+- Stage (add) all modified/deleted files but not untracked ones: `git add -u`.
+- Add everything (modified/deleted/untracked) files: `git add -A`.
+- To force staging an ignored file (listed in `.gitignore`), add `-f` to the command.
+
 ### Logs
 
 - Show commit logs: `git log`.
@@ -73,7 +79,7 @@ Which means:
 
 ### Undoing changes
 
-- **Un-staged** changes: `git reset <file>`, or `git restore --staged <file>`. This action unstage *local* changes. It's safe, because the local changes are *still there*. They're just not marked for commit (stage) yet.
+- **Un-staged** changes: `git reset <file>`, or `git restore --staged <file>`. This action unstage *local* changes. It's safe, because the local changes are *still there*. They're just not marked for commit (stage) yet. To unstaged all staged changes, use `git reset *` or `git restore --staged *`.
 - Discard **local** changes: `git restore <file>` **(DANGEROUS)** . This action will replace local `file` with its staged content. This is **unrecoverable**, because the local changes are lost.
 - Discard **all** changes: `git reset --hard` **(VERY DANGEROUS)**. This action replace all local and staged changes with HEAD commit, and only *untracked* files and directories are left untouched. All uncommited tracked changes are lost forever.
 - Rollback the current branch to a specific: `git reset --hard <commit>`**(VERY DANGEROUS)**. This action replace all local and staged changes with specific commit, and only *untracked* files and directories are left untouched. All uncommited tracked changes are lost forever. All commits after that specific commit are still there, but will not be visible using `git log`, unless they're still owned by another branch. To see these invisble commits, use `git reflog`.
