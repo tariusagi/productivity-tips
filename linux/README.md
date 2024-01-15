@@ -347,6 +347,95 @@ Finally, force the setting with this kernel command line (for Armbian based OS, 
 extraargs=drm.edid_firmware=HDMI-A-1:edid/sony4ktv.bin video=HDMI-A-1:1280x720D
 ```
 
+## Transmission Bitorrent installation
+
+This guide uses the `pi` user and target directory is `/mnt/nas`. Change them if needed.
+
+First, install it with `sudo apt install transmission-daemon`.
+
+Then run `sudo systemctl edit transmission-daemon` and put in the following section:
+
+```txt
+[Service]
+User=pi
+Group=pi
+```
+
+After that, create a `/home/pi/.config/transmission-daemon/settings.json` with this content, then start the service with `sudo systemctl start transmission-daemon`:
+
+```json
+{
+    "alt-speed-down": 50,
+    "alt-speed-enabled": false,
+    "alt-speed-time-begin": 540,
+    "alt-speed-time-day": 127,
+    "alt-speed-time-enabled": false,
+    "alt-speed-time-end": 1020,
+    "alt-speed-up": 50,
+    "bind-address-ipv4": "0.0.0.0",
+    "bind-address-ipv6": "::",
+    "blocklist-enabled": false,
+    "blocklist-url": "http://www.example.com/blocklist",
+    "cache-size-mb": 4,
+    "dht-enabled": true,
+    "download-dir": "/mnt/nas/Torrents/Completed",
+    "download-queue-enabled": true,
+    "download-queue-size": 5,
+    "encryption": 1,
+    "idle-seeding-limit": 30,
+    "idle-seeding-limit-enabled": false,
+    "incomplete-dir": "/mnt/nas/Torrents/Downloading",
+    "incomplete-dir-enabled": true,
+    "lpd-enabled": false,
+    "message-level": 1,
+    "peer-congestion-algorithm": "",
+    "peer-id-ttl-hours": 6,
+    "peer-limit-global": 200,
+    "peer-limit-per-torrent": 50,
+    "peer-port": 51413,
+    "peer-port-random-high": 65535,
+    "peer-port-random-low": 49152,
+    "peer-port-random-on-start": false,
+    "peer-socket-tos": "default",
+    "pex-enabled": true,
+    "port-forwarding-enabled": true,
+    "preallocation": 1,
+    "prefetch-enabled": true,
+    "queue-stalled-enabled": true,
+    "queue-stalled-minutes": 30,
+    "ratio-limit": 2,
+    "ratio-limit-enabled": false,
+    "rename-partial-files": true,
+    "rpc-authentication-required": true,
+    "rpc-bind-address": "0.0.0.0",
+    "rpc-enabled": true,
+    "rpc-host-whitelist": "",
+    "rpc-host-whitelist-enabled": true,
+    "rpc-password": "{e7da0f2ae5e32c7019b5a5c60b8f0d3fb677cfb5i0QKw//5",
+    "rpc-port": 9091,
+    "rpc-url": "/transmission/",
+    "rpc-username": "phuong",
+    "rpc-whitelist": "*.*.*.*",
+    "rpc-whitelist-enabled": true,
+    "scrape-paused-torrents-enabled": true,
+    "script-torrent-done-enabled": false,
+    "script-torrent-done-filename": "",
+    "seed-queue-enabled": false,
+    "seed-queue-size": 10,
+    "speed-limit-down": 100,
+    "speed-limit-down-enabled": false,
+    "speed-limit-up": 100,
+    "speed-limit-up-enabled": false,
+    "start-added-torrents": true,
+    "trash-original-torrent-files": false,
+    "umask": 18,
+    "upload-slots-per-torrent": 14,
+    "utp-enabled": true
+}
+```
+
+Finally, start it with `sudo systemctl start transmission-daemon`.
+
 For more info on this kernel setting, see this [link](https://wiki.archlinux.org/title/kernel_mode_setting), and this [link](https://forums.raspberrypi.com/viewtopic.php?t=327875).
 
 Now, reboot, and the new resolution should be enforced.
