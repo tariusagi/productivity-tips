@@ -347,9 +347,11 @@ Finally, force the setting with this kernel command line (for Armbian based OS, 
 extraargs=drm.edid_firmware=HDMI-A-1:edid/sony4ktv.bin video=HDMI-A-1:1280x720D
 ```
 
-## Transmission Bitorrent installation
+## Transmission torrent daemon installation
 
 This guide uses the `pi` user and target directory is `/mnt/nas`. Change them if needed.
+
+The settings also set web username to "phuong" with password "mypassword", which is clear text. But this password will be overwritten with a hash by Transmissions daemon later.
 
 First, install it with `sudo apt install transmission-daemon`.
 
@@ -361,7 +363,9 @@ User=pi
 Group=pi
 ```
 
-After that, create a `/home/pi/.config/transmission-daemon/settings.json` with this content, then start the service with `sudo systemctl start transmission-daemon`:
+After that, delete `/etc/transmission-daemon/settings.json` so the daemon will load user's configuration later instead of the default one.
+
+Now, create a `/home/pi/.config/transmission-daemon/settings.json` with this content, then start the service with `sudo systemctl start transmission-daemon`:
 
 ```json
 {
@@ -411,7 +415,7 @@ After that, create a `/home/pi/.config/transmission-daemon/settings.json` with t
     "rpc-enabled": true,
     "rpc-host-whitelist": "",
     "rpc-host-whitelist-enabled": true,
-    "rpc-password": "{e7da0f2ae5e32c7019b5a5c60b8f0d3fb677cfb5i0QKw//5",
+    "rpc-password": "mypassword",
     "rpc-port": 9091,
     "rpc-url": "/transmission/",
     "rpc-username": "phuong",
